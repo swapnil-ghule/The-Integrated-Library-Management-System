@@ -1,0 +1,78 @@
+# The Integrated Library management System
+
+class Library:
+    def __init__(self, books):
+        self.books = books
+
+    def display_available_books(self):
+        print("The available books are:")
+        for book in self.books:
+            if book.is_available():
+                print(book.title)
+
+    def lend_book(self, title, borrower):
+        for book in self.books:
+            if book.title == title:
+                if book.is_available():
+                    book.borrower = borrower
+                    book.available = False
+                    print("Book lent successfully!")
+                    return
+                else:
+                    print("Sorry, the book is already borrowed.")
+                    return
+        print("Sorry, the book is not available in the library.")
+
+    def return_book(self, title):
+        for book in self.books:
+            if book.title == title:
+                if not book.is_available():
+                    book.borrower = None
+                    book.available = True
+                    print("Book returned successfully!")
+                    return
+                else:
+                    print("This book is already available in the library.")
+                    return
+        print("Sorry, we don't have this book in our library.")
+
+class Book:
+    def __init__(self, title, author):
+        self.title = title
+        self.author = author
+        self.borrower = None
+        self.available = True
+
+    def is_available(self):
+        return self.available
+
+
+if __name__ == "__main__":
+    books = [Book("Fibre Optic Communication", "Paulo Coelho"), Book("Mobile Computing", "J.D. Salinger"), Book("Digital Marketing", "Harper Lee")]
+    library = Library(books)
+
+    while True:
+        print("\nWelcome to the library management system. Please select an option:")
+        print("1. Display available books")
+        print("2. Lend a book")
+        print("3. Return a book")
+        print("4. Quit")
+
+        choice = input()
+
+        if choice == "1":
+            library.display_available_books()
+        elif choice == "2":
+            title = input("Please enter the title of the book you want to borrow: ")
+            borrower = input("Please enter your name: ")
+            library.lend_book(title, borrower)
+        elif choice == "3":
+            title = input("Please enter the title of the book you want to return: ")
+            library.return_book(title)
+        elif choice == "4":
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+ #A project by
+ # Swapnil,Prajakta,Yogita,Prithvi
